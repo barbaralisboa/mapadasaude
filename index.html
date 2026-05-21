@@ -623,7 +623,8 @@ const main = document.getElementById('main');
     <button class="admin-close" onclick="document.getElementById('admin-panel').classList.remove('open')">×</button>
     <h2>✏️ Editar produtos</h2>
     <div id="admin-form"></div>
-    <button class="admin-save" onclick="salvarEdicoes()">💾 Salvar alterações</button>
+    <button class="admin-save" onclick="salvarEdicoes()">💾 Salvar e baixar index.html</button>
+    <p style="font-size:12px;color:#5A72A0;text-align:center;margin-top:10px;line-height:1.5;">Após baixar, suba o arquivo no GitHub para atualizar o site.</p>
   </div>
 </div>
 
@@ -683,7 +684,17 @@ function salvarEdicoes() {
   document.getElementById('main').innerHTML = '';
   renderVitrines();
   document.getElementById('admin-panel').classList.remove('open');
-  alert('✅ Alterações salvas! Lembre-se de copiar o código atualizado para salvar permanentemente.');
+  baixarArquivo();
+}
+
+function baixarArquivo() {
+  var conteudo = document.documentElement.outerHTML;
+  var blob = new Blob([conteudo], {type: 'text/html;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'index.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
 }
 
 function renderVitrines() {
